@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinco Pétalas | Curadoria Vegana e Cruelty-Free</title>
+    <!-- Carregando Tailwind CSS e Inter Font (padrão) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregando Lucide Icons (Ícones minimalistas de linha) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Configuração de Cores e Fontes Personalizadas do Escopo */
+        .font-title {
+            font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+        }
+        :root {
+            --color-soft-pink: #fef3f6; /* pink-50 */
+            --color-dark-pink: #db2777; /* rose-600 */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'soft-pink': '#fef3f6',
+                        'dark-pink': '#db2777',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+    <!-- 1. Header/Navegação -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#hero" class="text-2xl font-bold font-title text-dark-pink tracking-wider">
+                    Cinco Pétalas
+                </a>
+
+                <!-- Navegação Desktop -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#curadoria" class="text-gray-600 hover:text-dark-pink transition duration-150">Produtos</a>
+                    <a href="#guias" class="text-gray-600 hover:text-dark-pink transition duration-150">Guias</a>
+                    <a href="#contato" class="text-gray-600 hover:text-dark-pink transition duration-150">Contato</a>
+                    
+                    <!-- Botão do Carrinho (Desktop) -->
+                    <button onclick="openCartModal()" class="relative p-2 rounded-full text-gray-600 hover:text-dark-pink transition duration-150">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span id="cart-count-desktop" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-dark-pink rounded-full">0</span>
+                    </button>
+                </div>
+
+                <!-- Botões Mobile (Hamburger e Carrinho) -->
+                <div class="flex items-center md:hidden space-x-3">
+                    <!-- Botão do Carrinho (Mobile) -->
+                    <button onclick="openCartModal()" class="relative p-1 rounded-full text-gray-600 hover:text-dark-pink transition duration-150">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span id="cart-count-mobile" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-dark-pink rounded-full">0</span>
+                    </button>
+
+                    <!-- Botão Hamburger -->
+                    <button id="mobile-menu-button" type="button" class="p-2 rounded-md text-gray-400 hover:text-dark-pink focus:outline-none focus:ring-2 focus:ring-dark-pink" aria-controls="mobile-menu" aria-expanded="false">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Menu Mobile (Inicialmente Oculto) -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#curadoria" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-soft-pink">Produtos</a>
+                <a href="#guias" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-soft-pink">Guias</a>
+                <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-soft-pink">Contato</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section -->
+        <section id="hero" class="relative bg-soft-pink overflow-hidden py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+                    <!-- Conteúdo Esquerda -->
+                    <div class="col-span-6 text-center lg:text-left mb-10 lg:mb-0">
+                        <h1 class="text-5xl md:text-6xl font-extrabold font-title text-gray-900 leading-tight">
+                            Beleza Ética e <span class="text-dark-pink">Vegana</span>.
+                        </h1>
+                        <p class="mt-4 text-xl text-gray-600 max-w-lg mx-auto lg:mx-0">
+                            Uma curadoria exclusiva de produtos 100% cruelty-free e livres de ingredientes animais. Encontre sua nova rotina de beleza consciente.
+                        </p>
+                        <div class="mt-8 flex justify-center lg:justify-start space-x-3">
+                            <a href="#curadoria" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-dark-pink hover:bg-rose-700 shadow-lg transition duration-300 transform hover:scale-105">
+                                Ver Produtos
+                            </a>
+                            <a href="#guias" class="inline-flex items-center justify-center px-6 py-3 border border-dark-pink text-base font-medium rounded-full text-dark-pink bg-white hover:bg-dark-pink/10 transition duration-300">
+                                Explorar Guias
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Imagem Direita -->
+                    <div class="col-span-6 flex justify-center lg:justify-end">
+                        <img class="w-full max-w-sm md:max-w-md lg:max-w-lg rounded-3xl shadow-2xl object-cover transform rotate-3 hover:rotate-0 transition duration-500"
+                             src="https://placehold.co/600x600/fecaca/9d174d?text=Beleza+Consciente"
+                             alt="Uma imagem estética de produtos de beleza veganos e sustentáveis."
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x600/fecaca/9d174d?text=Beleza+Consciente';"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Seção de Loja/Produtos (Com Filtro) -->
+        <section id="curadoria" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-extrabold font-title text-gray-900 mb-4">Nossos Produtos Veganos</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Seleção rigorosa de Skincare, Maquiagem e Cabelos.
+                    </p>
+                </div>
+                
+                <!-- Botões de Categoria -->
+                <div class="max-w-3xl mx-auto mb-10 flex flex-wrap justify-center gap-3">
+                    <button onclick="filterByCategory(null)" id="btn-all" class="category-btn bg-dark-pink text-white px-4 py-2 rounded-full hover:bg-rose-700 transition duration-150 shadow-md">Ver Todos</button>
+                    <button onclick="filterByCategory('Skincare')" id="btn-skincare" class="category-btn bg-white text-dark-pink border border-dark-pink px-4 py-2 rounded-full hover:bg-soft-pink transition duration-150">Skincare</button>
+                    <button onclick="filterByCategory('Maquiagem')" id="btn-makeup" class="category-btn bg-white text-dark-pink border border-dark-pink px-4 py-2 rounded-full hover:bg-soft-pink transition duration-150">Maquiagem</button>
+                    <button onclick="filterByCategory('Cabelos')" id="btn-hair" class="category-btn bg-white text-dark-pink border border-dark-pink px-4 py-2 rounded-full hover:bg-soft-pink transition duration-150">Cabelos</button>
+                </div>
+
+                <!-- Barra de Pesquisa -->
+                <div class="max-w-xl mx-auto mb-10">
+                    <input type="text" id="product-search" onkeyup="renderProducts(null, this.value)" placeholder="Pesquisar por nome ou categoria..."
+                           class="w-full p-3 border border-gray-300 rounded-xl focus:ring-dark-pink focus:border-dark-pink transition duration-150 shadow-sm">
+                </div>
+
+                <!-- Lista de Produtos -->
+                <div id="product-list" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+                    <!-- Cards de Produtos serão inseridos aqui pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Seção de Guias e Blog (Inalterada) -->
+        <section id="guias" class="py-16 md:py-24 bg-soft-pink">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-extrabold font-title text-gray-900 mb-4">Guias de Beleza Consciente</h2>
+                <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                    Aprenda a aplicar, combinar e cuidar de si com dicas e tutoriais exclusivos da nossa equipe.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <!-- Cartão do Guia 1 (Esmaltação) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer" onclick="openBlogDetailModal('esmalte')">
+                        <span class="inline-block bg-soft-pink text-dark-pink text-xs font-semibold px-3 py-1 rounded-full mb-3">Unhas & Mãos</span>
+                        <h3 class="text-2xl font-semibold font-title text-gray-900 mb-2">Esmaltação Perfeita e Duradoura</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-2">O guia completo para unhas impecáveis por mais tempo. Aprenda os truques de preparação e aplicação.</p>
+                        <span class="text-sm text-dark-pink font-medium flex items-center">
+                            Ler Guia Completo <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </span>
+                    </div>
+
+                    <!-- Cartão do Guia 2 (Skincare) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer" onclick="openBlogDetailModal('pele')">
+                         <span class="inline-block bg-soft-pink text-dark-pink text-xs font-semibold px-3 py-1 rounded-full mb-3">Pele & Rosto</span>
+                        <h3 class="text-2xl font-semibold font-title text-gray-900 mb-2">Rotina de Skincare Vegana para Iniciantes</h3>
+                        <p class="text-gray-600 mb-4 line-clamp-2">3 passos simples para uma pele radiante e ética. Comece sua jornada de autocuidado consciente hoje.</p>
+                        <span class="text-sm text-dark-pink font-medium flex items-center">
+                            Ler Guia Completo <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Seção Contato/CTA (ATUALIZADA PARA INSCRIÇÃO DE E-MAIL) -->
+        <section id="contato" class="py-16 md:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-extrabold font-title text-gray-900 mb-4">Junte-se ao Movimento</h2>
+                <p class="text-xl text-gray-600 mb-8">
+                    Receba dicas exclusivas, lançamentos de produtos e ofertas especiais diretamente na sua caixa de entrada.
+                </p>
+                <!-- O formulário agora tem um ID para ser manipulado pelo JavaScript -->
+                <form id="email-form" class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto" method="POST">
+                    <input type="email" name="email" placeholder="Seu e-mail" required
+                           class="flex-grow p-4 border border-gray-300 rounded-xl focus:ring-dark-pink focus:border-dark-pink transition duration-150 shadow-md"
+                           aria-label="Insira seu e-mail para newsletter">
+                    <button type="submit"
+                            class="px-6 py-4 bg-dark-pink text-white font-medium rounded-xl hover:bg-rose-700 transition duration-300 transform hover:scale-105 shadow-lg">
+                        Quero Entrar
+                    </button>
+                </form>
+                <!-- Mensagem de status (sucesso/erro) será exibida aqui -->
+                <div id="subscription-status" class="mt-4 text-center text-lg font-medium hidden"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 6. Footer (Inalterado) -->
+    <footer class="bg-gray-900 text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-title font-semibold text-dark-pink mb-4">Cinco Pétalas</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#curadoria" class="hover:text-white transition">Nossa Missão</a></li>
+                        <li><a href="#" class="hover:text-white transition">Onde Comprar</a></li>
+                        <li><a href="#contato" class="hover:text-white transition">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-title font-semibold text-dark-pink mb-4">Suporte</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition">Política de Troca</a></li>
+                        <li><a href="#" class="hover:text-white transition">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 text-right md:text-left">
+                    <h4 class="text-lg font-title font-semibold text-dark-pink mb-4">Siga-nos</h4>
+                    <div class="flex justify-end md:justify-start space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
+                &copy; 2025 Cinco Pétalas. Todos os direitos reservados. | Curadoria Vegana e Cruelty-Free.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. Modal de Detalhe do Blog (Inalterado) -->
+    <div id="blog-detail-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[999] hidden flex items-center justify-center p-4" onclick="closeBlogDetailModal(event)">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-8 transform transition-all duration-300" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start mb-6">
+                <h2 id="blog-modal-title" class="text-3xl font-extrabold font-title text-dark-pink"></h2>
+                <button onclick="closeBlogDetailModal()" class="text-gray-500 hover:text-gray-900 transition duration-150 p-1 rounded-full hover:bg-gray-100">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <p id="blog-modal-subtitle" class="text-lg text-gray-600 mb-6 border-b pb-4"></p>
+            <div id="blog-modal-content" class="text-gray-700 leading-relaxed space-y-4">
+                <!-- Conteúdo do guia será injetado aqui pelo JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Modal do Carrinho de Compras -->
+    <div id="shopping-cart-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-[999] hidden flex justify-end p-0" onclick="closeCartModal(event)">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl overflow-y-auto transform transition-transform duration-300 ease-in-out translate-x-full" id="cart-content-drawer" onclick="event.stopPropagation()">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 border-b pb-4">
+                    <h2 class="text-3xl font-extrabold font-title text-dark-pink">Seu Carrinho</h2>
+                    <button onclick="closeCartModal()" class="text-gray-500 hover:text-gray-900 transition duration-150 p-1 rounded-full hover:bg-gray-100">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div id="cart-items-container" class="space-y-4 min-h-[50vh]">
+                    <!-- Itens do carrinho serão inseridos aqui -->
+                </div>
+
+                <div id="empty-cart-message" class="text-center text-gray-500 py-10 hidden">
+                    <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-3"></i>
+                    <p>Seu carrinho está vazio.</p>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center text-xl font-bold font-title text-gray-900">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">R$ 0,00</span>
+                    </div>
+                    <button class="w-full mt-6 py-3 bg-dark-pink text-white font-medium rounded-xl hover:bg-rose-700 transition duration-300 transform hover:scale-105 shadow-lg">
+                        Finalizar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 9. JavaScript para Lógica de E-commerce e Interações -->
+    <script>
+        // Inicializa os ícones Lucide
+        lucide.createIcons();
+
+        // --- Dados dos Produtos ---
+        const products = [
+            { id: 1, name: "Máscara Facial Refrescante", price: 40.90, image: "mascara.jpg", category: "Skincare", desc: "Argila rosa e chá verde para detox e hidratação. 100g." },
+            { id: 2, name: "Batom Líquido Matte (Rosa)", price: 45.50, image: "batom.jpg" , category: "Maquiagem", desc: "Longa duração com acabamento matte e fórmula vegana." },
+            { id: 3, name: "Shampoo Sólido Suavizante", price: 39.00, image: "shampoo.jpg", category: "Cabelos", desc: "Barra natural, limpa suavemente sem agredir o couro cabeludo." },
+            { id: 4, name: "Sérum Iluminador Vitamina C", price: 30.00, image: "serum.jpg", category: "Skincare", desc: "Potente para reduzir manchas e uniformizar o tom da pele. 30ml." },
+            { id: 5, name: "Delineador Líquido Preto", price: 55.90, image: "delineador.jpg", category: "Maquiagem", desc: "À prova d'água, ponta precisa e fórmula com carvão vegetal." },
+            { id: 6, name: "Condicionador Hidratante", price: 29.00, image: "condi.jpg", category: "Cabelos", desc: "Rico em óleos vegetais para nutrição intensa e brilho." },
+            { id: 7, name: "Esfoliante Corporal Vegano", price: 49.90, image: "esfoliante.jpg", category: "Skincare", desc: "Renovação celular com açúcar orgânico e manteiga de karité." },
+            { id: 8, name: "Blush Cremoso Pêssego", price: 10.00,  image: "blush.jpg" , category: "Maquiagem", desc: "Cor natural e fácil de esfumar. Perfeito para o dia a dia." }
+        ];
+
+        let cart = [];
+
+        // --- Funções do Carrinho (Início) ---
+
+        /**
+         * Inicializa o carrinho a partir do localStorage.S
+         */
+        function initCart() {
+            try {
+                const storedCart = localStorage.getItem('cincoPetalasCart');
+                if (storedCart) {
+                    cart = JSON.parse(storedCart);
+                }
+            } catch (e) {
+                console.error("Erro ao carregar carrinho do localStorage:", e);
+                cart = []; // Reseta em caso de erro de parse
+            }
+            updateCartDisplay();
+        }
+
+        /**
+         * Salva o estado atual do carrinho no localStorage.
+         */
+        function saveCart() {
+            localStorage.setItem('cincoPetalasCart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        /**
+         * Adiciona um produto ao carrinho.
+         * @param {number} productId - O ID do produto a ser adicionado.
+         */
+        window.addToCart = function(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            saveCart();
+            showConfirmationMessage(product.name);
+        };
+
+        /**
+         * Remove completamente um item do carrinho.
+         * @param {number} productId - O ID do produto a ser removido.
+         */
+        window.removeFromCart = function(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            renderCartItems(); // Atualiza o modal de carrinho
+        };
+
+        /**
+         * Atualiza o contador e o subtotal do carrinho.
+         */
+        function updateCartDisplay() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Atualiza contadores no cabeçalho
+            document.getElementById('cart-count-desktop').textContent = totalItems;
+            document.getElementById('cart-count-mobile').textContent = totalItems;
+            
+            // Atualiza subtotal no modal
+            document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            // Renderiza os itens no modal
+            renderCartItems();
+        }
+
+        /**
+         * Renderiza os itens dentro do modal de carrinho.
+         */
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            const emptyMessage = document.getElementById('empty-cart-message');
+            container.innerHTML = ''; // Limpa o conteúdo anterior
+
+            if (cart.length === 0) {
+                emptyMessage.classList.remove('hidden');
+                return;
+            } else {
+                emptyMessage.classList.add('hidden');
+            }
+
+            cart.forEach(item => {
+                const itemHtml = `
+                    <div class="flex items-center space-x-4 p-3 border-b border-gray-100 last:border-b-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-grow">
+                            <h4 class="text-base font-medium text-gray-900 line-clamp-1">${item.name}</h4>
+                            <p class="text-sm text-gray-500">Qtd: ${item.quantity}</p>
+                            <p class="text-sm font-semibold text-dark-pink">${(item.price * item.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 transition duration-150">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHtml);
+            });
+            // Re-renderiza os ícones Lucide dentro do modal (necessário após injeção de HTML)
+            lucide.createIcons(); 
+        }
+
+        // --- Funções do Modal de Carrinho (Abertura/Fechamento) ---
+        const cartModal = document.getElementById('shopping-cart-modal');
+        const cartDrawer = document.getElementById('cart-content-drawer');
+
+        window.openCartModal = function() {
+            updateCartDisplay(); // Garante que o conteúdo e total estão atualizados
+            cartModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Evita rolagem do fundo
+            // Adiciona a classe para animação de slide-in
+            setTimeout(() => {
+                cartDrawer.classList.remove('translate-x-full');
+            }, 10); // Pequeno delay para garantir que o display:block foi aplicado
+        };
+
+        window.closeCartModal = function(event) {
+            // Verifica se o clique foi no overlay ou se foi chamado sem evento (via botão X)
+            if (event && event.target !== cartModal) return;
+
+            // Inicia a animação de slide-out
+            cartDrawer.classList.add('translate-x-full');
+            
+            // Oculta o modal após a animação (300ms é a duração padrão do Tailwind transition-transform)
+            setTimeout(() => {
+                cartModal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restaura a rolagem do fundo
+            }, 300);
+        };
+
+        // --- Confirmação de Adição ao Carrinho ---
+        function showConfirmationMessage(productName) {
+            const message = `"${productName}" adicionado ao carrinho!`;
+            console.log(message); // Em um ambiente real, isto seria um toast/pop-up
+            
+            // Simulação de um pop-up de notificação (substitui o alert)
+            const confirmationDiv = document.createElement('div');
+            confirmationDiv.className = 'fixed bottom-4 right-4 bg-dark-pink text-white p-4 rounded-xl shadow-xl transition-opacity duration-300 z-[1000]';
+            confirmationDiv.innerHTML = `<p class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2"></i> ${message}</p>`;
+            document.body.appendChild(confirmationDiv);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                confirmationDiv.classList.add('opacity-0');
+                setTimeout(() => confirmationDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // --- Lógica de Renderização de Produtos e Pesquisa (Filtro) ---
+
+        let activeCategory = null;
+
+        /**
+         * Filtra produtos por categoria e limpa a barra de pesquisa.
+         * @param {string | null} category - Categoria selecionada (ou null para Ver Todos).
+         */
+        window.filterByCategory = function(category) {
+            activeCategory = category;
+            
+            // Limpa a barra de pesquisa ao clicar em uma categoria
+            document.getElementById('product-search').value = ''; 
+            
+            // Atualiza o estilo dos botões
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                const btnText = btn.textContent.trim();
+                const isActive = (category === null && btnText === 'Ver Todos') || (btnText === category);
+
+                if (isActive) {
+                    // Estilo ativo
+                    btn.className = 'category-btn bg-dark-pink text-white px-4 py-2 rounded-full hover:bg-rose-700 transition duration-150 shadow-md';
+                } else {
+                    // Estilo inativo
+                    btn.className = 'category-btn bg-white text-dark-pink border border-dark-pink px-4 py-2 rounded-full hover:bg-soft-pink transition duration-150';
+                }
+            });
+            
+            renderProducts(category); // Renderiza com a nova categoria e pesquisa vazia (pois o input foi limpo)
+        };
+
+
+        /**
+         * Renderiza a lista de produtos baseada no filtro de categoria e termo de pesquisa.
+         * @param {string | null} categoryFilter - Categoria para filtrar (ou null para todas).
+         * @param {string} [searchTerm] - Termo de pesquisa (opcional).
+         */
+        window.renderProducts = function(categoryFilter = activeCategory, searchTerm = null) {
+            const productList = document.getElementById('product-list');
+            const searchInput = document.getElementById('product-search');
+            
+            // Obtém o termo de pesquisa atual
+            const currentSearchTerm = (searchTerm !== null) ? searchTerm.toLowerCase() : searchInput.value.toLowerCase();
+            
+            productList.innerHTML = ''; // Limpa a lista
+
+            // Define se deve exibir a mensagem inicial (nem categoria selecionada, nem termo de pesquisa)
+            const shouldShowInitialMessage = !categoryFilter && !currentSearchTerm;
+            
+            if (shouldShowInitialMessage) {
+                productList.innerHTML = `
+                    <div class="col-span-full text-center py-20 text-gray-500">
+                        <i data-lucide="search-check" class="w-16 h-16 mx-auto mb-4"></i>
+                        <p class="text-xl font-medium">Use a barra de pesquisa ou selecione uma categoria para visualizar os produtos.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            let filteredProducts = products;
+
+            // 1. Aplicar filtro de Categoria
+            if (categoryFilter) {
+                filteredProducts = filteredProducts.filter(product => product.category === categoryFilter);
+            }
+
+            // 2. Aplicar filtro de Pesquisa
+            if (currentSearchTerm) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.name.toLowerCase().includes(currentSearchTerm) || 
+                    product.category.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+            
+            if (filteredProducts.length === 0) {
+                productList.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Nenhum produto encontrado para sua pesquisa ou categoria.</p>';
+                lucide.createIcons();
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const productCard = `
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-soft-pink text-dark-pink text-xs font-semibold px-2 py-0.5 rounded-full mb-2">${product.category}</span>
+                            <h3 class="text-lg font-semibold font-title text-gray-900 line-clamp-2">${product.name}</h3>
+                            <p class="text-sm text-gray-500 mb-2 h-10 overflow-hidden">${product.desc}</p>
+                            <p class="text-xl font-bold text-dark-pink mb-4">${product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                            <button onclick="addToCart(${product.id})" 
+                                class="w-full py-2 bg-dark-pink text-white font-medium text-sm rounded-full hover:bg-rose-700 transition duration-150 flex items-center justify-center">
+                                <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productList.insertAdjacentHTML('beforeend', productCard);
+            });
+            // Re-renderiza os ícones Lucide nos botões de adicionar
+            lucide.createIcons(); 
+        };
+
+        // --- Lógica de Navegação Mobile (Inalterada) ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // --- Lógica do Modal de Blog (Inalterada) ---
+        const blogGuides = {
+            'esmalte': {
+                title: "Esmaltação Perfeita e Duradoura",
+                subtitle: "O guia completo para unhas impecáveis por mais tempo.",
+                content: `
+                    <p class="text-gray-700 mb-4">A chave para uma manicure caseira profissional está na preparação. Não importa a qualidade do esmalte, se a base não for bem feita, a durabilidade será comprometida.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Passo 1: Preparação</h3>
+                    <p class="text-gray-700 mb-4">Comece limpando bem as unhas. Use um removedor sem acetona e empurre suavemente as cutículas. Não as retire, apenas empurre para um acabamento mais limpo e saudável.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Passo 2: Base Protetora</h3>
+                    <p class="text-gray-700 mb-4">Aplique uma camada fina de base vegana e cruelty-free. Isso protegerá suas unhas de pigmentação e ajudará o esmalte a aderir melhor.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Dica Bônus</h3>
+                    <p class="text-gray-700 mb-4">Para a esmaltação durar mais, limpe a superfície da unha com um algodão e álcool antes de aplicar a base para remover qualquer oleosidade.</p>
+                `
+            },
+            'pele': {
+                title: "Rotina de Skincare Vegana para Iniciantes",
+                subtitle: "3 passos simples para uma pele radiante e ética.",
+                content: `
+                    <p class="text-gray-700 mb-4">A rotina de cuidados com a pele não precisa ser complexa. O essencial é focar em produtos com ingredientes naturais e, claro, livres de crueldade.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Passo 1: Limpeza Suave</h3>
+                    <p class="text-gray-700 mb-4">Use um gel de limpeza suave, sem sulfatos. Lave o rosto de manhã e à noite para remover impurezas e preparar a pele para os próximos passos.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Passo 2: Hidratação Essencial</h3>
+                    <p class="text-gray-700 mb-4">Um hidratante leve e vegano é crucial. Aplique-o com a pele ainda úmida para selar a hidratação. Procure por ingredientes como ácido hialurônico de origem vegetal.</p>
+                    <h3 class="text-xl font-title font-semibold mt-6 mb-3 text-dark-pink">Passo 3: Proteção Solar</h3>
+                    <p class="text-gray-700 mb-4">De manhã, finalize sempre com um protetor solar FPS 30+ ou superior. A proteção solar é o passo antienvelhecimento mais importante de qualquer rotina.</p>
+                `
+            }
+        };
+
+        const blogModal = document.getElementById('blog-detail-modal');
+        const blogModalTitle = document.getElementById('blog-modal-title');
+        const blogModalSubtitle = document.getElementById('blog-modal-subtitle');
+        const blogModalContent = document.getElementById('blog-modal-content');
+
+        window.openBlogDetailModal = function(guideId) {
+            const guide = blogGuides[guideId];
+            if (!guide) return;
+            blogModalTitle.textContent = guide.title;
+            blogModalSubtitle.textContent = guide.subtitle;
+            blogModalContent.innerHTML = guide.content;
+            blogModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeBlogDetailModal = function(event) {
+            if (event && event.target !== blogModal) return;
+            blogModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+
+        // --- Lógica de Inscrição de E-mail (NOVA FUNÇÃO) ---
+        const emailForm = document.getElementById('email-form');
+        const statusMessage = document.getElementById('subscription-status');
+
+        emailForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const emailInput = emailForm.querySelector('input[name="email"]');
+            const email = emailInput.value;
+            
+            statusMessage.classList.add('hidden'); // Oculta mensagens anteriores
+            statusMessage.classList.remove('text-red-500', 'text-green-600');
+            statusMessage.textContent = '';
+            
+            // Exibe mensagem de carregamento/processamento
+            statusMessage.classList.remove('hidden');
+            statusMessage.classList.add('text-gray-500');
+            statusMessage.innerHTML = '<p class="flex items-center justify-center"><i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Processando sua inscrição...</p>';
+            lucide.createIcons();
+
+            // --- ATENÇÃO: SIMULAÇÃO DE ENVIO DE E-MAIL ---
+            
+            // Para que o e-mail seja realmente enviado, você precisaria de um serviço de
+            // backend (como Firebase Functions, AWS Lambda) ou uma API de terceiros
+            // (como SendGrid, Mailchimp, ou Formspree/FormSubmit).
+            // O código abaixo SIMULA o sucesso APÓS um pequeno atraso.
+            
+            console.log(`Tentativa de inscrição com o e-mail: ${email}`);
+            
+            // Simular um atraso de rede (500ms)
+            setTimeout(() => {
+                // Se a integração com o backend for bem-sucedida, execute o código abaixo:
+                
+                statusMessage.classList.remove('text-gray-500');
+                statusMessage.classList.add('text-green-600');
+                statusMessage.innerHTML = '<p class="flex items-center justify-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2"></i> Sucesso! Você receberá nosso e-mail de boas-vindas em breve. Verifique sua caixa de spam.</p>';
+                
+                // Limpa o input após o sucesso
+                emailInput.value = '';
+                
+                lucide.createIcons();
+
+                // Caso haja um ERRO real na comunicação com o backend/API, 
+                // você deve usar este código para informar o usuário:
+                /*
+                statusMessage.classList.remove('text-gray-500');
+                statusMessage.classList.add('text-red-500');
+                statusMessage.innerHTML = '<p class="flex items-center justify-center"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i> Erro ao se inscrever. Tente novamente mais tarde.</p>';
+                lucide.createIcons();
+                */
+
+            }, 500);
+        });
+
+        // --- Inicialização ---
+        window.onload = function() {
+            initCart(); // Carrega o carrinho do localStorage
+            
+            // Chama "Ver Todos" para garantir que a mensagem inicial seja exibida (produtos invisíveis inicialmente)
+            filterByCategory(null); 
+        };
+    </script>
+</body>
+</html>
